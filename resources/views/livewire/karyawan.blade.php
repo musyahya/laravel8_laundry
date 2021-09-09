@@ -11,6 +11,7 @@
 
             @include('layouts/karyawan/tambah')
             @include('layouts/karyawan/edit')
+            @include('layouts/karyawan/hapus')
             @if (session()->has('sukses'))
                 <div class="alert alert-success" role="alert">
                     {{ session('sukses') }}
@@ -41,7 +42,7 @@
                             <td>
                               <div class="btn-group" role="group" aria-label="Basic example">
                                 <button wire:click="show_edit({{$item->id}})" type="button" class="btn btn-sm btn-primary mr-2">Edit</button>
-                                <button type="button" class="btn btn-sm btn-danger">Hapus</button>
+                                <button wire:click="show_hapus({{$item->id}})" type="button" class="btn btn-sm btn-danger">Hapus</button>
                               </div>
                             </td>
                         </tr>

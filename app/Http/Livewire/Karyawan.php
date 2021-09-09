@@ -13,7 +13,7 @@ class Karyawan extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    public $tambah, $edit;
+    public $tambah, $edit, $hapus;
     public $nama, $email, $password, $password_confirmation, $alamat, $hp, $karyawan_id;
 
     protected function rules()
@@ -38,6 +38,11 @@ class Karyawan extends Component
         }
 
         return $rule;
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
 
     public function show_tambah()
@@ -104,11 +109,32 @@ class Karyawan extends Component
         $this->format();
     }
 
+    public function show_hapus(ModelsKaryawan $karyawan)
+    {
+        $this->hapus = true;
+
+        $this->karyawan_id = $karyawan->id;
+        $this->nama = $karyawan->user->name;
+    }
+
+    public function destroy()
+    {
+        $karyawan = ModelsKaryawan::find($this->karyawan_id);
+
+        User::whereId($karyawan->user_id)->delete();
+        $karyawan->delete();
+
+        session()->flash('sukses', 'Data berhasil dihapus.');
+        $this->updatingSearch();
+        $this->format();
+    }
+
     public function format()
     {
         unset($this->nama, $this->email, $this->password, $this->password_confirmation, $this->hp, $this->alamat, $this->karyawan_id);
         $this->tambah = false;
         $this->edit = false;
+        $this->hapus = false;
     }
 
     public function render()
