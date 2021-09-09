@@ -23,4 +23,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', \App\Http\Livewire\Dashboard::class);
+    Route::get('/karyawan', \App\Http\Livewire\Karyawan::class);
 });

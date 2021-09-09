@@ -82,7 +82,7 @@
             @hasSection('content')
                 @yield('content')
             @else
-                <livewire:dashboard />
+                {{ $slot }}
             @endif
         </main>
     </div>
