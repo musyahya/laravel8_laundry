@@ -7,7 +7,7 @@
             <h2>Halaman Layanan</h2>
 
             @include('layouts/layanan/tambah')
-            {{-- @include('layouts/layanan/edit') --}}
+            @include('layouts/layanan/edit')
             {{-- @include('layouts/layanan/hapus') --}}
             @include('layouts/flashdata')
 

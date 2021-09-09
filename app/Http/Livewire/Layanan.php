@@ -11,8 +11,8 @@ class Layanan extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    public $tambah;
-    public $nama, $durasi, $harga;
+    public $tambah, $edit;
+    public $nama, $durasi, $harga, $layanan_id;
 
     public function updatingSearch()
     {
@@ -47,9 +47,33 @@ class Layanan extends Component
         $this->format();
     }
 
+    public function show_edit(ModelsLayanan $layanan)
+    {
+        $this->edit = true;
+        $this->layanan_id = $layanan->id;
+        $this->harga = $layanan->harga;
+        $this->nama = $layanan->nama;
+        $this->durasi = $layanan->durasi;
+    }
+
+    public function update()
+    {
+        $this->validate();
+
+        $layanan = ModelsLayanan::whereId($this->layanan_id)->update([
+            'nama' => $this->nama,
+            'durasi' => $this->durasi,
+            'harga' => $this->harga,
+        ]);
+
+        session()->flash('sukses', 'Data berhasil diubah.');
+        $this->format();
+    }
+
     public function format()
     {
         $this->tambah = false;
+        $this->edit = false;
         unset($this->nama, $this->durasi, $this->harga);
     }
 
