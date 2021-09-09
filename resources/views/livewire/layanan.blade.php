@@ -4,15 +4,15 @@
           @include('layouts/sidebar')
         </div>
         <div class="col-md-9">
-            <h2>Halaman Karyawan</h2>
+            <h2>Halaman Layanan</h2>
 
-            @include('layouts/karyawan/tambah')
-            @include('layouts/karyawan/edit')
-            @include('layouts/karyawan/hapus')
+            {{-- @include('layouts/layanan/tambah')
+            @include('layouts/layanan/edit')
+            @include('layouts/layanan/hapus') --}}
             @include('layouts/flashdata')
 
             <button wire:click="show_tambah" type="button" class="btn btn-primary btn-sm mb-3">
-                Tambah Karyawan
+                Tambah Layanan
             </button>
 
             <table class="table table-striped">
@@ -20,18 +20,18 @@
                     <tr>
                         <th width="10%" scope="col">No</th>
                         <th scope="col">Nama</th>
-                        <th scope="col">Hp</th>
-                        <th scope="col">Alamat</th>
+                        <th scope="col">Durasi</th>
+                        <th scope="col">Harga</th>
                         <th width="10%" scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($karyawan as $item)
+                    @foreach ($layanan as $item)
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
-                            <td>{{ $item->user->name }}</td>
-                            <td>{{ $item->hp }}</td>
-                            <td>{{ $item->alamat }}</td>
+                            <td>{{ $item->nama }}</td>
+                            <td>{{ $item->durasi }} jam</td>
+                            <td>Rp. {{ number_format($item->harga) }}</td>
                             <td>
                               <div class="btn-group" role="group" aria-label="Basic example">
                                 <button wire:click="show_edit({{$item->id}})" type="button" class="btn btn-sm btn-primary mr-2">Edit</button>
@@ -43,7 +43,7 @@
                 </tbody>
             </table>
 
-            {{ $karyawan->links() }}
+            {{ $layanan->links() }}
         </div>
     </div>
 </div>
