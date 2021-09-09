@@ -40,6 +40,8 @@
                     @endforeach
                 </tbody>
             </table>
+
+            {{ $karyawan->links() }}
         </div>
     </div>
 </div>

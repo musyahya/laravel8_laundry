@@ -6,9 +6,13 @@ use App\Models\Karyawan as ModelsKaryawan;
 use App\Models\User;
 use Livewire\Component;
 use Illuminate\Validation\Rules\Password;
+use Livewire\WithPagination;
 
 class Karyawan extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+
     public $tambah;
     public $nama, $email, $password, $password_confirmation, $alamat, $hp;
 
@@ -57,7 +61,7 @@ class Karyawan extends Component
 
     public function render()
     {
-        $karyawan = ModelsKaryawan::all();
+        $karyawan = ModelsKaryawan::paginate(5);
         return view('livewire.karyawan', compact('karyawan'));
     }
 }
