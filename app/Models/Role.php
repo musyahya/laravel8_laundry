@@ -9,4 +9,9 @@ class Role extends Model
 {
     use HasFactory;
     protected $fillable = ['nama'];
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
 }
