@@ -10,6 +10,7 @@
             <h2>Halaman Karyawan</h2>
 
             @include('layouts/karyawan/tambah')
+            @include('layouts/karyawan/edit')
             @if (session()->has('sukses'))
                 <div class="alert alert-success" role="alert">
                     {{ session('sukses') }}
@@ -27,6 +28,7 @@
                         <th scope="col">Nama</th>
                         <th scope="col">Hp</th>
                         <th scope="col">Alamat</th>
+                        <th width="10%" scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,6 +38,12 @@
                             <td>{{ $item->user->name }}</td>
                             <td>{{ $item->hp }}</td>
                             <td>{{ $item->alamat }}</td>
+                            <td>
+                              <div class="btn-group" role="group" aria-label="Basic example">
+                                <button wire:click="show_edit({{$item->id}})" type="button" class="btn btn-sm btn-primary mr-2">Edit</button>
+                                <button type="button" class="btn btn-sm btn-danger">Hapus</button>
+                              </div>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

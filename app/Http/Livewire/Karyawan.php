@@ -13,18 +13,31 @@ class Karyawan extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    public $tambah;
-    public $nama, $email, $password, $password_confirmation, $alamat, $hp;
+    public $tambah, $edit;
+    public $nama, $email, $password, $password_confirmation, $alamat, $hp, $karyawan_id;
 
     protected function rules()
     {
-        return [
+        $karyawan = ModelsKaryawan::find($this->karyawan_id);
+
+        $rule = [
             'nama' => 'required',
             'email' => ['required', 'email', 'unique:App\Models\User,email'],
             'password' => ['required', Password::min(8), 'confirmed'],
             'hp' => ['required', 'numeric', 'digits:12'],
             'alamat' => ['required'],
         ];
+
+        if ($this->edit) {
+            if (!$this->password && !$this->password_confirmation) {
+                $rule['password'] = '';
+            }
+            if ($this->email == $karyawan->user->email) {
+                $rule['email'] = '';
+            }
+        }
+
+        return $rule;
     }
 
     public function show_tambah()
@@ -53,10 +66,49 @@ class Karyawan extends Component
         $this->format();
     }
 
+    public function show_edit(ModelsKaryawan $karyawan)
+    {
+        $this->edit = true;
+
+        $this->karyawan_id = $karyawan->id;
+        $this->nama = $karyawan->user->name;
+        $this->email = $karyawan->user->email;
+        $this->alamat = $karyawan->alamat;
+        $this->hp = $karyawan->hp;
+    }
+
+    public function update()
+    {
+        $this->validate();
+
+        $karyawan = ModelsKaryawan::find($this->karyawan_id);
+
+        $data_user = [
+            'name' => $this->nama, 
+            'email' => $this->email, 
+            'password' => bcrypt($this->password),
+        ];
+
+        if (!$this->password) {
+            unset($data_user['password']);
+        }
+
+        $karyawan->user->update($data_user);
+
+        $karyawan->update([
+            'hp' => $this->hp,
+            'alamat' => $this->alamat
+        ]);
+
+        session()->flash('sukses', 'Data berhasil diubah.');
+        $this->format();
+    }
+
     public function format()
     {
-        unset($this->nama, $this->email, $this->password, $this->password_confirmation, $this->hp, $this->alamat);
+        unset($this->nama, $this->email, $this->password, $this->password_confirmation, $this->hp, $this->alamat, $this->karyawan_id);
         $this->tambah = false;
+        $this->edit = false;
     }
 
     public function render()
