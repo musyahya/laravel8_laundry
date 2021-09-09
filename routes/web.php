@@ -21,4 +21,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/dashboard', \App\Http\Livewire\Dashboard::class);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', \App\Http\Livewire\Dashboard::class);
+});
