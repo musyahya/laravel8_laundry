@@ -4,14 +4,14 @@
             @include('layouts/sidebar')
         </div>
         <div class="col-md-9">
-            <h2>Halaman Layanan</h2>
+            <h2>Halaman Progres</h2>
 
             @include('layouts/flashdata')
 
             <div class="row">
                 <div class="col-md-8">
                     <button wire:click="show_tambah" type="button" class="btn btn-primary btn-sm mb-3">
-                        Tambah Layanan
+                        Tambah Progres
                     </button>
                 </div>
                 <div class="col-md-4">

@@ -16,6 +16,14 @@ class Progres extends Component
         $this->resetPage();
     }
 
+    public function aksi(Transaksi $transaksi)
+    {
+        $transaksi->update([
+            'status' => $transaksi->status +1
+        ]);
+        session()->flash('sukses', 'Aksi berhasil dijalankan.');
+    }
+
     public function render()
     {
         $progres = Transaksi::latest()->paginate(5);
