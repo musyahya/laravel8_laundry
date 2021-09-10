@@ -11,9 +11,21 @@
             @include('layouts/karyawan/hapus')
             @include('layouts/flashdata')
 
-            <button wire:click="show_tambah" type="button" class="btn btn-primary btn-sm mb-3">
-                Tambah Karyawan
-            </button>
+            <div class="row">
+                <div class="col-md-8">
+                    <button wire:click="show_tambah" type="button" class="btn btn-primary btn-sm mb-3">
+                        Tambah Karyawan
+                    </button>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input wire:model="search" type="text" class="form-control" placeholder="Search">
+                        <div class="input-group-prepend" style="cursor: pointer">
+                            <div wire:click="format_search" class="input-group-text">x</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <table class="table table-striped">
                 <thead>

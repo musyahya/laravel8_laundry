@@ -13,7 +13,7 @@ class Karyawan extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    public $tambah, $edit, $hapus;
+    public $tambah, $edit, $hapus, $search;
     public $nama, $email, $password, $password_confirmation, $alamat, $hp, $karyawan_id;
 
     protected function rules()
@@ -137,9 +137,20 @@ class Karyawan extends Component
         $this->hapus = false;
     }
 
+    public function format_search()
+    {
+        $this->search = '';
+    }
+
     public function render()
     {
-        $karyawan = ModelsKaryawan::paginate(5);
+        if ($this->search) {
+            $karyawan = ModelsKaryawan::whereHas('user', function($user){
+                $user->where('name', 'like', '%'. $this->search .'%');
+            })->paginate(5);
+        } else {
+            $karyawan = ModelsKaryawan::paginate(5);
+        }
         return view('livewire.karyawan', compact('karyawan'));
     }
 }
