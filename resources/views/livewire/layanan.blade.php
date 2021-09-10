@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-          @include('layouts/sidebar')
+            @include('layouts/sidebar')
         </div>
         <div class="col-md-9">
             <h2>Halaman Layanan</h2>
@@ -11,9 +11,21 @@
             @include('layouts/layanan/hapus')
             @include('layouts/flashdata')
 
-            <button wire:click="show_tambah" type="button" class="btn btn-primary btn-sm mb-3">
-                Tambah Layanan
-            </button>
+            <div class="row">
+                <div class="col-md-8">
+                    <button wire:click="show_tambah" type="button" class="btn btn-primary btn-sm mb-3">
+                        Tambah Layanan
+                    </button>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input wire:model="search" type="text" class="form-control" placeholder="Search">
+                        <div class="input-group-prepend" style="cursor: pointer">
+                            <div wire:click="format_search" class="input-group-text">x</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <table class="table table-striped">
                 <thead>
@@ -33,10 +45,12 @@
                             <td>{{ $item->durasi }} jam</td>
                             <td>Rp. {{ number_format($item->harga) }}</td>
                             <td>
-                              <div class="btn-group" role="group" aria-label="Basic example">
-                                <button wire:click="show_edit({{$item->id}})" type="button" class="btn btn-sm btn-primary mr-2">Edit</button>
-                                <button wire:click="show_hapus({{$item->id}})" type="button" class="btn btn-sm btn-danger">Hapus</button>
-                              </div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button wire:click="show_edit({{ $item->id }})" type="button"
+                                        class="btn btn-sm btn-primary mr-2">Edit</button>
+                                    <button wire:click="show_hapus({{ $item->id }})" type="button"
+                                        class="btn btn-sm btn-danger">Hapus</button>
+                                </div>
                             </td>
                         </tr>
                     @endforeach

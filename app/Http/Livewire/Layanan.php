@@ -11,7 +11,7 @@ class Layanan extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    public $tambah, $edit, $hapus;
+    public $tambah, $edit, $hapus, $search;
     public $nama, $durasi, $harga, $layanan_id;
 
     public function updatingSearch()
@@ -94,9 +94,18 @@ class Layanan extends Component
         unset($this->nama, $this->durasi, $this->harga, $this->layanan_id);
     }
 
+    public function format_search()
+    {
+        $this->search = '';
+    }
+
     public function render()
     {
-        $layanan = ModelsLayanan::paginate(5);
+        if ($this->search) {
+            $layanan = ModelsLayanan::where('nama', 'like', '%'. $this->search .'%')->paginate(5);
+        } else {
+            $layanan = ModelsLayanan::paginate(5);
+        }
         return view('livewire.layanan', compact('layanan'));
     }
 }
