@@ -25,4 +25,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', \App\Http\Livewire\Dashboard::class);
     Route::get('/karyawan', \App\Http\Livewire\Karyawan::class);
     Route::get('/layanan', \App\Http\Livewire\Layanan::class);
+    Route::get('/transaksi', \App\Http\Livewire\Transaksi::class);
 });
