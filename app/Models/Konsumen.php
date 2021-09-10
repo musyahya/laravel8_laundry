@@ -12,4 +12,8 @@ class Konsumen extends Model
     protected $table = 'konsumen';
     protected $fillable = ['user_id', 'hp', 'alamat'];
 
+    public function user()
+    {
+        return $this->belongsTo(user::class);
+    }
 }

@@ -10,4 +10,19 @@ class Barang extends Model
     use HasFactory;
     protected $table = 'barang';
     protected $fillable = ['user_id', 'barang'];
+
+    public function user()
+    {
+        return $this->belongsTo(user::class);
+    }
+
+    public function detail_barang()
+    {
+        return $this->hasMany(DetailBarang::class);
+    }
+
+    public function transaksi()
+    {
+        return $this->hasOne(Transaksi::class);
+    }
 }

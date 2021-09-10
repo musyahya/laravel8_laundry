@@ -10,4 +10,9 @@ class DetailBarang extends Model
     use HasFactory;
     protected $table = 'detail_barang';
     protected $fillable = ['nama', 'barang_id'];
+
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class);
+    }
 }
