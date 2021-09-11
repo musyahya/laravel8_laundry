@@ -6,8 +6,6 @@
         <div class="col-md-9">
             <h2>Halaman Pembayaran</h2>
 
-            @include('layouts/flashdata')
-
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
@@ -52,6 +50,7 @@
                         </div>
                     </div>
                     <button wire:click="pembayaran" class="btn btn-success btn-sm mt-3">Pembayaran</button>
+                    <button wire:click="kembali" class="btn btn-secondary btn-sm mt-3">Kembali</button>
                 </div>
             </div>
         </div>
