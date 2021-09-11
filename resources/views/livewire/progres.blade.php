@@ -8,13 +8,17 @@
 
             @include('layouts/flashdata')
 
-            <div class="row">
-                <div class="col-md-8">
-                    <button wire:click="show_tambah" type="button" class="btn btn-primary btn-sm mb-3">
-                        Tambah Progres
-                    </button>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label>Tanggal diterima</label>
+                    <input wire:model="tanggal_diterima" type="date" class="form-control">
                 </div>
                 <div class="col-md-4">
+                    <label>Tanggal diambil</label>
+                    <input wire:model="tanggal_diambil" type="date" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label>Search</label>
                     <div class="input-group">
                         <input wire:model="search" type="text" class="form-control" placeholder="Search">
                         <div class="input-group-prepend" style="cursor: pointer">
