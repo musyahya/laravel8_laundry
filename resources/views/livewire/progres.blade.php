@@ -79,8 +79,8 @@
                                     <button wire:click="aksi({{ $item->id }})" type="button"
                                         class="btn btn-sm btn-warning mr-2">Menunggu Dibayar</button>
                                 @elseif ($item->status == 4)
-                                    <button wire:click="aksi({{ $item->id }})" type="button"
-                                        class="btn btn-sm btn-success mr-2">Selesai</button>
+                                    <button wire:click="pembayaran({{ $item->id }})" type="button"
+                                        class="btn btn-sm btn-success mr-2">Pembayaran</button>
                                 @endif
                             </td>
                         </tr>

@@ -27,4 +27,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/layanan', \App\Http\Livewire\Layanan::class);
     Route::get('/transaksi', \App\Http\Livewire\Transaksi::class);
     Route::get('/progres', \App\Http\Livewire\Progres::class);
+    Route::get('/pembayaran', \App\Http\Livewire\Pembayaran::class);
 });

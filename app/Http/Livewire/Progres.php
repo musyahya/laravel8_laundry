@@ -26,6 +26,12 @@ class Progres extends Component
         session()->flash('sukses', 'Aksi berhasil dijalankan.');
     }
 
+    public function pembayaran($transaksi_id)
+    {
+        session(['transaksi_id' => $transaksi_id]);
+        return redirect('/pembayaran');
+    }
+
     public function format_search()
     {
         $this->search = '';
