@@ -1,9 +1,9 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
-          @include('layouts/sidebar')
+        <div class="col-md-4 col-lg-3">
+            @include('layouts/sidebar')
         </div>
-        <div class="col-md-9">
+        <div class="col-md-8 col-lg-9">
             <h2>Halaman Karyawan</h2>
 
             @include('layouts/karyawan/tambah')

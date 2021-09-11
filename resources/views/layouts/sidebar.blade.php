@@ -1,4 +1,4 @@
-<div class="list-group">
+<div class="list-group d-none d-sm-none d-md-block">
     <a href="/dashboard" class="list-group-item list-group-item-action">Dashboard</a>
     @can('admin')
     <a href="/karyawan" class="list-group-item list-group-item-action">Karyawan</a>
