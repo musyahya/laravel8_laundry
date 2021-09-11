@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\TransaksiMail;
 use App\Models\Barang;
 use App\Models\DetailBarang;
 use App\Models\Konsumen;
@@ -10,6 +11,7 @@ use App\Models\Transaksi as ModelsTransaksi;
 use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class Transaksi extends Component
 {
@@ -75,7 +77,7 @@ class Transaksi extends Component
                 ]);
             }
     
-            ModelsTransaksi::create([
+            $transaksi = ModelsTransaksi::create([
                 'layanan_id' => $this->layanan_nama,
                 'barang_id' => $barang->id,
                 'total_bayar' => $layanan->harga * $this->berat,
@@ -84,18 +86,11 @@ class Transaksi extends Component
                 'status' => 0
             ]);
 
-            session()->flash('sukses', 'Data berhasil ditambahkan.');
-            $this->format();
-        });
-    }
+            Mail::to($this->email)->send(new TransaksiMail($transaksi));
 
-    public function format()
-    {
-        $this->barang = [];
-        array_push($this->barang, "");
-        $this->layanan_nama = false;
-        $this->berat = false;
-        unset($this->nama, $this->email, $this->hp, $this->alamat, $this->total_bayar);
+            session()->flash('sukses', 'Data berhasil ditambahkan.');
+            return redirect('/progres');
+        });
     }
 
     public function render()
