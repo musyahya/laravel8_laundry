@@ -11,6 +11,8 @@ class Progres extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
+    public $search;
+
     public function updatingSearch()
     {
         $this->resetPage();
@@ -24,9 +26,22 @@ class Progres extends Component
         session()->flash('sukses', 'Aksi berhasil dijalankan.');
     }
 
+    public function format_search()
+    {
+        $this->search = '';
+    }
+
     public function render()
     {
-        $progres = Transaksi::latest()->paginate(5);
+        if ($this->search) {
+            $progres = Transaksi::whereHas('barang', function($barang){
+                $barang->whereHas('user', function($user){
+                    $user->where('name', 'like', '%'. $this->search .'%');
+                });
+            })->latest()->paginate(5);
+        } else {
+            $progres = Transaksi::latest()->paginate(5);
+        }
         return view('livewire.progres', compact('progres'));
     }
 }
