@@ -2,8 +2,11 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\PembayaranMail;
 use App\Models\Transaksi;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class Pembayaran extends Component
 {
@@ -16,13 +19,18 @@ class Pembayaran extends Component
 
     public function pembayaran()
     {
-        Transaksi::whereId(session('transaksi_id'))->update([
-            'status' => 5
-        ]);
+        DB::transaction(function () {
+            $transaksi = Transaksi::find(session('transaksi_id'));
+            $transaksi->update([
+                'status' => 5
+            ]);
 
-        session()->forget('transaksi_id');
-        session()->flash('sukses', 'Berhasil melakukan pembayaran.');
-        return redirect('/progres');
+            Mail::to($transaksi->barang->user->email)->send(new PembayaranMail($transaksi));
+    
+            session()->forget('transaksi_id');
+            session()->flash('sukses', 'Berhasil melakukan pembayaran.');
+            return redirect('/progres');
+        });
     }
 
     public function kembali()
