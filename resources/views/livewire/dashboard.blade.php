@@ -126,6 +126,22 @@
                    </div>
                 </div>
             </div>
+
+            <div class="row mt-4">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Chart Selesai Transaksi</h5>
+                            <div style="height: 32rem;">
+                                <livewire:livewire-column-chart
+                                    key="{{ $chart->reactiveKey() }}"
+                                    :column-chart-model="$chart"
+                                />
+                             </div>      
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
